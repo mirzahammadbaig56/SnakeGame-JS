@@ -1,5 +1,5 @@
 // Basic settings
-const box = 36;              // size of one cell in pixels
+let box = 36;              // size of one cell in pixels
 let cols = null;
 let rows = null;
 
@@ -25,6 +25,7 @@ let direction = "RIGHT";
 let food = {};
 let score = 0;
 let highScore = localStorage.getItem("snakeHighScore") || 0;
+let isNewHighScore = false;
 let seconds = 0;
 let speed = 150;
 let isPaused = false;
@@ -33,7 +34,15 @@ let timerLoop;
 
 highScoreText.textContent = highScore;
 
+function isMobile() {
+  return window.matchMedia("(max-width: 600px), (pointer: coarse)").matches;
+}
+function getBoxSize() {
+  return isMobile() ? 28 : 36;
+}
+
 function buildBoard() {
+  box = getBoxSize();
   const wrapper = document.querySelector(".board-wrapper");
   const availableWidth = wrapper.clientWidth - 40;   // minus the wrapper's own padding
   const availableHeight = wrapper.clientHeight - 40;
@@ -152,8 +161,9 @@ function move() {
       highScore = score;
       highScoreText.textContent = highScore;
       localStorage.setItem("snakeHighScore", highScore);
+      isNewHighScore = true;  
     }
-    if (speed > 70) {
+    if (speed > 80) {
       speed -= 5;
       clearInterval(gameLoop);
       gameLoop = setInterval(move, speed);
@@ -172,6 +182,15 @@ function gameOver() {
   clearInterval(gameLoop);
   clearInterval(timerLoop);
   finalScoreText.textContent = score;
+
+  if (isNewHighScore) {
+    finalScoreText.innerHTML = `${score} High Score 🎉`;
+    finalScoreText.style.color = "#4ade80";
+  } else {
+    finalScoreText.textContent = score;
+    finalScoreText.style.color = "#ff4d4d";
+  }
+
   gameOverOverlay.classList.add("show");
 }
 
@@ -181,7 +200,8 @@ function startGame() {
   clearInterval(timerLoop);
 
   isPaused = false;
-  speed = 150;
+  isNewHighScore = false; 
+  speed = isMobile() ? 230 : 150;
 
   startOverlay.classList.remove("show");
   gameOverOverlay.classList.remove("show");
@@ -227,6 +247,22 @@ function togglePause() {
 
 // Keyboard controls
 document.addEventListener("keydown", (e) => {
+  if (startOverlay.classList.contains("show")) {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      startGame();
+    }
+    return;   
+  }
+
+  if (gameOverOverlay.classList.contains("show")) {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      startGame();
+    }
+    return; 
+  }
+
   if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
   if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
   if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";

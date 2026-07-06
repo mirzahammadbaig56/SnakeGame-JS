@@ -124,6 +124,7 @@ body {
   font-weight: bold;
 }
 
+
 button {
   background: #4ade80;
   color: #0d0d0d;
@@ -169,6 +170,11 @@ button:hover {
   border: 1px solid #333;
 }
 
+.restart-corner:hover,
+.pause-corner:hover {
+  scale: 1;
+}
+
 .mobile-controls {
   display: none;
   flex-direction: column;
@@ -185,14 +191,53 @@ button:hover {
   gap: 8px;
 }
 
-.mobile-controls button {
-  width: 52px;
-  height: 52px;
-  font-size: 18px;
-  border-radius: 10px;
+.dpad-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
-  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0;  
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dpad-btn:hover {
+  scale: 1;
+}
+
+.dpad-btn:active {
+  background: rgba(74, 222, 128, 0.25);
+  border-color: #4ade80;
+}
+
+.dpad-btn::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.dpad-up::before {
+  border-width: 0 8px 12px 8px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.dpad-down::before {
+  border-width: 12px 8px 0 8px;
+  border-color: #fff transparent transparent transparent;
+}
+
+.dpad-left::before {
+  border-width: 8px 12px 8px 0;
+  border-color: transparent #fff transparent transparent;
+}
+
+.dpad-right::before {
+  border-width: 8px 0 8px 12px;
+  border-color: transparent transparent transparent #fff;
 }
 
 @media (max-width: 600px), (pointer: coarse) {
