@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <link rel="icon" type="image/svg+xml" href="favicon (1).svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="stats-bar">
+    <div class="stat-box">High Score: <span id="high-score">0</span></div>
+    <div class="stat-box">Score: <span id="score">0</span></div>
+    <div class="stat-box">Time: <span id="time">00:00</span></div>
+  </header>
+
+  <div class="board-wrapper">
+    <div id="game-board"></div>
+
+    <div class="overlay show" id="start-overlay">
+      <h2>Snake Game</h2>
+      <button id="start-btn">Start</button>
+    </div>
+
+    <div class="overlay" id="game-over-overlay">
+      <h2>Game Over</h2>
+      <p>Score: <span id="final-score">0</span></p>
+      <button id="play-again-btn">Play Again</button>
+    </div>
+
+    <div class="overlay" id="pause-overlay">
+      <h2>Paused</h2>
+      <p>Press Space to resume</p>
+    </div>
+
+    <button class="restart-corner" id="restart-btn" title="Restart">⟳</button>
+    <button class="pause-corner" id="pause-btn" title="Pause">⏸</button>
+
+    <div class="mobile-controls">
+      <button id="up-btn">⬆</button>
+      <div class="middle-row">
+        <button id="left-btn">⬅</button>
+        <button id="down-btn">⬇</button>
+        <button id="right-btn">➡</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
