@@ -201,7 +201,7 @@ function startGame() {
 
   isPaused = false;
   isNewHighScore = false; 
-  speed = isMobile() ? 230 : 150;
+  speed = isMobile() ? 200 : 150;
 
   startOverlay.classList.remove("show");
   gameOverOverlay.classList.remove("show");
